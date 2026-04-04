@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math Adventure</title>
+    <style>
+      :root {
+        --bg-blue: #dfe8f3;
+        --bg-purple: #e5e3fb;
+        --bg-green: #dcebdc;
+        --bg-yellow: #ece9d7;
+        --white: #ffffff;
+        --card: #fbfbfb;
+        --line: #d3d7df;
+        --text: #111111;
+        --muted: #6c7280;
+        --primary: #2f66ea;
+        --primary-dark: #0d2a66;
+        --success: #13924d;
+        --shadow: 0 2px 10px rgba(17, 17, 17, 0.04);
+        --radius-xl: 22px;
+        --radius-lg: 16px;
+        --radius-md: 12px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--text);
+        background: #f4f5f7;
+      }
+
+      .site-page {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: var(--white);
+        border: 1px solid #e2e5ea;
+      }
+
+      .topbar {
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 56px;
+        border-bottom: 1px solid #dfe3ea;
+        background: var(--white);
+      }
+
+      .brand {
+        font-size: 28px;
+        font-weight: 700;
+      }
+
+      .menu {
+        display: flex;
+        gap: 42px;
+        font-size: 18px;
+      }
+
+      .menu a {
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .page-main {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .page-main.blue { background: var(--bg-blue); }
+      .page-main.purple { background: var(--bg-purple); }
+      .page-main.green { background: var(--bg-green); }
+      .page-main.yellow { background: var(--bg-yellow); }
+
+      .motif {
+        position: absolute;
+        color: rgba(88, 132, 230, 0.35);
+        font-size: 66px;
+        font-weight: 700;
+        user-select: none;
+        pointer-events: none;
+      }
+
+      .motif.small {
+        font-size: 54px;
+      }
+
+      .footer-simple {
+        text-align: center;
+        font-size: 14px;
+        color: #707784;
+        padding: 16px 20px 18px;
+        background: var(--white);
+      }
+
+      .hero-wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 72px 70px 56px;
+      }
+
+      .hero-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 40px;
+      }
+
+      .hero-copy h1 {
+        font-size: 58px;
+        line-height: 1.08;
+        margin: 0 0 18px;
+        font-weight: 700;
+      }
+
+      .hero-copy h2 {
+        margin: 0 0 28px;
+        font-size: 24px;
+        color: var(--primary);
+        font-weight: 500;
+      }
+
+      .hero-copy p {
+        max-width: 620px;
+        font-size: 18px;
+        line-height: 1.35;
+        color: var(--muted);
+        margin: 0;
+      }
+
+      .hero-cta {
+        margin-top: 10px;
+      }
+
+      .btn {
+        border: none;
+        cursor: pointer;
+        border-radius: var(--radius-md);
+        font-size: 18px;
+        font-weight: 500;
+        padding: 15px 26px;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: var(--white);
+      }
+
+      .btn-outline {
+        background: var(--white);
+        border: 1px solid #ccd3dd;
+        color: var(--text);
+      }
+
+      .section-inner {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 48px 70px 18px;
+      }
+
+      .center-head {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .center-head .eyebrow {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--primary);
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+
+      .center-head h2 {
+        font-size: 56px;
+        line-height: 1.08;
+        margin: 0 0 18px;
+      }
+
+      .center-head p {
+        margin: 0 auto;
+        font-size: 18px;
+        color: var(--muted);
+        max-width: 760px;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px 80px;
+        margin-bottom: 54px;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .feature-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--primary);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .feature-item h3 {
+        margin: 0 0 8px;
+        font-size: 22px;
+      }
+
+      .feature-item p {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.35;
+        color: var(--muted);
+      }
+
+      .audience-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+
+      .audience-card {
+        background: var(--card);
+        border: 1px solid #d4d8de;
+        border-radius: 22px;
+        padding: 24px 22px 20px;
+      }
+
+      .audience-card .tag {
+        font-size: 16px;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+
+      .audience-card h4 {
+        font-size: 22px;
+        margin: 0 0 14px;
+      }
+
+      .audience-card p {
+        margin: 0;
+        font-size: 18px;
+        color: var(--muted);
+        line-height: 1.35;
+      }
+
+      .center-card-shell {
+        min-height: calc(100vh - 128px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 24px;
+      }
+
+      .card-large,
+      .card-medium,
+      .card-small {
+        background: var(--card);
+        border: 1px solid #cdd2da;
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .card-large {
+        width: 540px;
+        padding: 44px 44px 36px;
+      }
+
+      .card-medium {
+        width: 700px;
+        padding: 46px 42px 42px;
+      }
+
+      .card-small {
+        width: 560px;
+        padding: 44px 42px 36px;
+      }
+
+      .card-title {
+        font-size: 38px;
+        margin: 0 0 12px;
+        text-align: center;
+        font-weight: 700;
+      }
+
+      .card-subtitle {
+        font-size: 20px;
+        color: #4c4f57;
+        margin: 0 0 32px;
+        text-align: center;
+      }
+
+      .left-title {
+        text-align: left;
+      }
+
+      .left-subtitle {
+        text-align: left;
+      }
+
+      .field {
+        width: 100%;
+        height: 82px;
+        border: 1px solid #ccd1d9;
+        border-radius: 14px;
+        background: #ffffff;
+        padding: 0 24px;
+        font-size: 20px;
+        color: #878d99;
+        margin-bottom: 24px;
+      }
+
+      .btn-block {
+        width: 100%;
+        height: 72px;
+        font-size: 20px;
+        border-radius: 14px;
+      }
+
+      .card-links {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 24px;
+        font-size: 18px;
+        color: #4c4f57;
+      }
+
+      .selection-wrap {
+        max-width: 1470px;
+        margin: 0 auto;
+        padding: 60px 20px 26px;
+      }
+
+      .selection-head {
+        text-align: center;
+        margin-bottom: 42px;
+      }
+
+      .selection-head h1 {
+        font-size: 54px;
+        margin: 0 0 14px;
+      }
+
+      .selection-head p {
+        font-size: 22px;
+        color: #2f2f36;
+        margin: 0;
+      }
+
+      .grade-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+
+      .grade-card {
+        background: var(--card);
+        border: 1px solid #cfd3da;
+        border-radius: 30px;
+        padding: 18px 18px 20px;
+        box-shadow: var(--shadow);
+      }
+
+      .grade-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .grade-title {
+        font-size: 28px;
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .pill {
+        background: #efefef;
+        color: #4d4d4d;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-size: 16px;
+      }
+
+      .grade-icon-box,
+      .type-icon-box {
+        background: #f1f1f1;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .grade-icon-box {
+        height: 150px;
+        margin-bottom: 22px;
+        font-size: 74px;
+      }
+
+      .grade-desc {
+        font-size: 19px;
+        line-height: 1.18;
+        color: #31343a;
+        min-height: 90px;
+        margin-bottom: 16px;
+      }
+
+      .grade-btn,
+      .type-btn {
+        width: 100%;
+        height: 58px;
+        border-radius: 14px;
+        font-size: 24px;
+      }
+
+      .grade-btn {
+        background: #ffffff;
+        border: 1px solid #cfd3da;
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .type-wrap {
+        max-width: 1470px;
+        margin: 0 auto;
+        padding: 70px 36px 36px;
+      }
+
+      .type-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 38px;
+      }
+
+      .type-card {
+        background: var(--card);
+        border: 1px solid #cfd3da;
+        border-radius: 26px;
+        padding: 20px 22px 24px;
+        text-align: center;
+        box-shadow: var(--shadow);
+      }
+
+      .type-icon-box {
+        height: 146px;
+        margin-bottom: 24px;
+        font-size: 72px;
+      }
+
+      .type-card h3 {
+        font-size: 28px;
+        margin: 0 0 16px;
+      }
+
+      .type-card p {
+        margin: 0 0 28px;
+        font-size: 20px;
+        line-height: 1.16;
+        color: #30343b;
+        min-height: 72px;
+      }
+
+      .type-btn {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        font-weight: 500;
+      }
+
+      .stats-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        margin-bottom: 40px;
+      }
+
+      .stat-box {
+        border: 1px solid #d0d4dc;
+        background: #fff;
+        border-radius: 14px;
+        padding: 26px 20px 24px;
+        text-align: center;
+      }
+
+      .stat-box .label {
+        font-size: 18px;
+        color: #4f545f;
+        margin-bottom: 12px;
+      }
+
+      .stat-box .value {
+        font-size: 56px;
+        font-weight: 700;
+      }
+
+      .feedback-message {
+        text-align: center;
+        color: var(--success);
+        font-size: 22px;
+        font-weight: 500;
+        margin: 10px 0 34px;
+      }
+
+      .practice-wrap {
+        max-width: 1480px;
+        margin: 0 auto;
+        padding: 58px 34px 22px;
+      }
+
+      .practice-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 42px;
+      }
+
+      .practice-top-left,
+      .practice-top-right {
+        display: flex;
+        align-items: center;
+        gap: 34px;
+      }
+
+      .square-btn,
+      .small-pill,
+      .timer-box {
+        background: #f6f6f6;
+        border: 1px solid #adb4c2;
+        border-radius: 18px;
+      }
+
+      .square-btn {
+        width: 68px;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 38px;
+      }
+
+      .small-pill {
+        padding: 19px 32px;
+        font-size: 20px;
+      }
+
+      .star-score {
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .timer-box {
+        padding: 18px 24px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .progress-line {
+        width: 100%;
+        height: 18px;
+        background: #d5d7df;
+        border-radius: 99px;
+        overflow: hidden;
+        margin-bottom: 54px;
+      }
+
+      .progress-fill {
+        width: 72%;
+        height: 100%;
+        background: #090909;
+        border-radius: 99px;
+      }
+
+      .practice-layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 64px;
+        align-items: start;
+      }
+
+      .side-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .buddy-box {
+        width: 226px;
+        height: 138px;
+        border-radius: 28px;
+        border: 1px solid #9ea6b4;
+        background: #fbfbfb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 62px;
+        margin-bottom: 22px;
+      }
+
+      .buddy-text {
+        font-size: 20px;
+        margin-bottom: 50px;
+      }
+
+      .hint-btn,
+      .skip-btn {
+        width: 222px;
+        height: 78px;
+        border-radius: 22px;
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .hint-btn {
+        background: #fff;
+        border: 1px solid #9da5b4;
+        margin-bottom: 34px;
+      }
+
+      .skip-btn {
+        background: #0d2a66;
+        color: #fff;
+        border: none;
+      }
+
+      .question-panel {
+        width: 100%;
+      }
+
+      .question-card {
+        border: 1px solid #9ea6b4;
+        background: #fbfbfb;
+        border-radius: 30px;
+        padding: 48px 40px 36px;
+        text-align: center;
+        margin-bottom: 44px;
+      }
+
+      .equation {
+        font-size: 66px;
+        font-weight: 700;
+        margin-bottom: 30px;
+      }
+
+      .equation .muted-op {
+        color: #9096a3;
+        font-weight: 600;
+        margin: 0 10px;
+      }
+
+      .flames {
+        font-size: 30px;
+        letter-spacing: 28px;
+        padding-left: 28px;
+      }
+
+      .answers-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 56px;
+      }
+
+      .answer-box {
+        height: 128px;
+        border-radius: 26px;
+        border: 1px solid #9ea6b4;
+        background: #fbfbfb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 58px;
+        font-weight: 700;
+      }
+
+      .question-dots {
+        display: flex;
+        justify-content: center;
+        align-items: end;
+        gap: 26px;
+        margin-top: 34px;
+      }
+
+      .dot-item {
+        text-align: center;
+      }
+
+      .dot-label {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .dot {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #d1d1d1;
+        margin: 0 auto;
+      }
+
+      .dot.active {
+        background: #707889;
+      }
+
+      @media (max-width: 1200px) {
+        .grade-grid,
+        .audience-grid,
+        .type-grid,
+        .features-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .practice-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .side-panel {
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 860px) {
+        .menu {
+          gap: 20px;
+          font-size: 15px;
+        }
+
+        .hero-row,
+        .practice-top,
+        .practice-top-left,
+        .practice-top-right,
+        .stats-row,
+        .features-grid,
+        .grade-grid,
+        .type-grid,
+        .audience-grid,
+        .answers-grid {
+          grid-template-columns: 1fr !important;
+          display: grid;
+        }
+
+        .hero-wrap,
+        .section-inner,
+        .selection-wrap,
+        .type-wrap,
+        .practice-wrap {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        .topbar {
+          padding: 0 20px;
+          flex-direction: column;
+          height: auto;
+          padding-top: 18px;
+          padding-bottom: 18px;
+          gap: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HOME -->
+    <section class="site-page">
+      <header class="topbar">
+        <div class="brand">Math Adventure</div>
+        <nav class="menu">
+          <a href="#">Home</a>
+          <a href="#">Practice</a>
+          <a href="#">Progress</a>
+          <a href="#">Login</a>
+        </nav>
+      </header>
+
+      <main class="page-main blue">
+        <div class="motif" style="right: 200px; top: 170px">+</div>
+
+        <div class="hero-wrap">
+          <div class="hero-row">
+            <div class="hero-copy">
+              <h1>Welcome to Math Adventure</h1>
+              <h2>Your personal math practice assistant</h2>
+              <p>
+                Practice by level, improve with instant feedback, earn rewards,
+                and track your progress through a fun and motivating math journey.
+              </p>
+            </div>
+
+            <div class="hero-cta">
+              <button class="btn btn-primary">Get Started</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-inner">
+          <div class="center-head">
+            <div class="eyebrow">Features</div>
+            <h2>A better way to practice math</h2>
+            <p>
+              Solve problems, get instant feedback, earn badges, and improve
+              your confidence one level at a time.
+            </p>
+          </div>
+
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">+</div>
+              <div>
+                <h3>Step by step Practice</h3>
+                <p>
+                  Answer questions and strengthen your math skills at your own pace.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon">✓</div>
+              <div>
+                <h3>Instant Feedback</h3>
+                <p>
+                  Learn quickly by seeing the correct answer right after each attempt.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon">★</div>
+              <div>
+                <h3>Progress Tracking</h3>
+                <p>
+                  Monitor levels, streaks, and accuracy as you improve over time.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon">∞</div>
+              <div>
+                <h3>Unlimited Practice</h3>
+                <p>
+                  Keep practicing whenever you want with multiple question types and levels.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="audience-grid">
+            <div class="audience-card">
+              <div class="tag">For Kids</div>
+              <h4>Fun challenge-based learning</h4>
+              <p>
+                Colorful levels, daily quests, and rewards make practice enjoyable.
+              </p>
+            </div>
+
+            <div class="audience-card">
+              <div class="tag">For Adults</div>
+              <h4>Clear and focused practice</h4>
+              <p>
+                Improve speed, confidence, and accuracy with structured exercises.
+              </p>
+            </div>
+
+            <div class="audience-card">
+              <div class="tag">For Families</div>
+              <h4>Shared progress and support</h4>
+              <p>
+                Parents can review growth while learners stay motivated through milestones.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer-simple">© 2026 Math Adventure - Learn. Practice. Improve.</footer>
+    </section>
+
+    <!-- LOGIN -->
+    <section class="site-page">
+      <header class="topbar">
+        <div class="brand">Math Adventure</div>
+        <nav class="menu">
+          <a href="#">Home</a>
+          <a href="#">Practice</a>
+          <a href="#">Progress</a>
+          <a href="#">Login</a>
+        </nav>
+      </header>
+
+      <main class="page-main blue">
+        <div class="motif" style="left: 30px; top: 110px">+</div>
+        <div class="motif small" style="left: 420px; bottom: 150px">÷</div>
+        <div class="motif small" style="right: 130px; top: 420px">÷</div>
+        <div class="motif" style="right: 60px; bottom: 120px">×</div>
+
+        <div class="center-card-shell">
+          <div class="card-large">
+            <h2 class="card-title left-title">Login</h2>
+            <p class="card-subtitle left-subtitle">Sign in to continue your math adventure.</p>
+            <input class="field" value="Email" />
+            <input class="field" value="Password" />
+            <button class="btn btn-primary btn-block">Login</button>
+            <div class="card-links">
+              <span>Forgot password?</span>
+              <span>Create account</span>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer-simple">© 2026 Math Adventure - Learn. Practice. Improve.</footer>
+    </section>
+
+    <!-- CHOOSE GRADE LEVEL -->
+    <section class="site-page">
+      <header class="topbar">
+        <div class="brand">Math Adventure</div>
+        <nav class="menu">
+          <a href="#">Home</a>
+          <a href="#">Practice</a>
+          <a href="#">Progress</a>
+          <a href="#">Login</a>
+        </nav>
+      </header>
+
+      <main class="page-main blue">
+        <div class="motif" style="left: 28px; top: 100px">x</div>
+
+        <div class="selection-wrap">
+          <div class="selection-head">
+            <h1>Choose Grade Level</h1>
+            <p>First choose the learner’s grade level</p>
+          </div>
+
+          <div class="grade-grid">
+            <div class="grade-card">
+              <div class="grade-top">
+                <div class="grade-title">Kindergarten</div>
+                <div class="pill">Starter</div>
+              </div>
+              <div class="grade-icon-box">🧸</div>
+              <div class="grade-desc">Very simple counting, shapes, and first number practice.</div>
+              <button class="grade-btn">Select Grade</button>
+            </div>
+
+            <div class="grade-card">
+              <div class="grade-top">
+                <div class="grade-title">1st Grade</div>
+                <div class="pill">Beginner</div>
+              </div>
+              <div class="grade-icon-box">🐣</div>
+              <div class="grade-desc">Adding, subtracting, and counting up to 100.</div>
+              <button class="grade-btn">Select Grade</button>
+            </div>
+
+            <div class="grade-card">
+              <div class="grade-top">
+                <div class="grade-title">2nd Grade</div>
+                <div class="pill">Developing</div>
+              </div>
+              <div class="grade-icon-box">🚀</div>
+              <div class="grade-desc">Adding and subtracting bigger numbers, plus early multiplication.</div>
+              <button class="grade-btn">Select Grade</button>
+            </div>
+
+            <div class="grade-card">
+              <div class="grade-top">
+                <div class="grade-title">3rd Grade</div>
+                <div class="pill">Intermediate</div>
+              </div>
+              <div class="grade-icon-box">📘</div>
+              <div class="grade-desc">Multiplying, dividing, and understanding fractions.</div>
+              <button class="grade-btn">Select Grade</button>
+            </div>
+
+            <div class="grade-card">
+              <div class="grade-top">
+                <div class="grade-title">4th Grade</div>
+                <div class="pill">Advanced</div>
+              </div>
+              <div class="grade-icon-box">🧠</div>
+              <div class="grade-desc">Big number multiplication, long division, and decimals.</div>
+              <button class="grade-btn">Select Grade</button>
+            </div>
+
+            <div class="grade-card">
+              <div class="grade-top">
+                <div class="grade-title">5th Grade</div>
+                <div class="pill">Mastery</div>
+              </div>
+              <div class="grade-icon-box">🏆</div>
+              <div class="grade-desc">Working with fractions, decimals, and word problems.</div>
+              <button class="grade-btn">Select Grade</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer-simple">© 2026 Math Adventure - Learn. Practice. Improve.</footer>
+    </section>
+
+    <!-- CHOOSE QUESTION TYPE -->
+    <section class="site-page">
+      <header class="topbar">
+        <div class="brand">Math Adventure</div>
+        <nav class="menu">
+          <a href="#">Home</a>
+          <a href="#">Practice</a>
+          <a href="#">Progress</a>
+          <a href="#">Login</a>
+        </nav>
+      </header>
+
+      <main class="page-main purple">
+        <div class="motif" style="left: 36px; top: 160px">x</div>
+        <div class="motif small" style="right: 90px; bottom: 130px">+</div>
+        <div class="motif small" style="left: 720px; bottom: 80px">-</div>
+
+        <div class="type-wrap">
+          <div class="selection-head">
+            <h1>Choose Question Type</h1>
+            <p>Pick the type of math questions to practice</p>
+          </div>
+
+          <div class="type-grid">
+            <div class="type-card">
+              <div class="type-icon-box">+</div>
+              <h3>Addition</h3>
+              <p>Practice adding numbers</p>
+              <button class="type-btn">Start Addition</button>
+            </div>
+
+            <div class="type-card">
+              <div class="type-icon-box">−</div>
+              <h3>Subtraction</h3>
+              <p>Practice subtracting numbers</p>
+              <button class="type-btn">Start Subtraction</button>
+            </div>
+
+            <div class="type-card">
+              <div class="type-icon-box">÷</div>
+              <h3>Division</h3>
+              <p>Practice dividing numbers</p>
+              <button class="type-btn">Start Division</button>
+            </div>
+
+            <div class="type-card">
+              <div class="type-icon-box">X</div>
+              <h3>Multiplication</h3>
+              <p>Practice multiplying numbers</p>
+              <button class="type-btn">Start Multiplication</button>
+            </div>
+
+            <div class="type-card">
+              <div class="type-icon-box">⇄</div>
+              <h3>Mixed Operations</h3>
+              <p>Practice various operations</p>
+              <button class="type-btn">Start Mixed</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer-simple">© 2026 Math Adventure - Learn. Practice. Improve.</footer>
+    </section>
+
+    <!-- PRACTICE -->
+    <section class="site-page">
+      <header class="topbar">
+        <div class="brand">Math Adventure</div>
+        <nav class="menu">
+          <a href="#">Home</a>
+          <a href="#">Practice</a>
+          <a href="#">Progress</a>
+          <a href="#">Login</a>
+        </nav>
+      </header>
+
+      <main class="page-main yellow">
+        <div class="practice-wrap">
+          <div class="practice-top">
+            <div class="practice-top-left">
+              <div class="square-btn">←</div>
+              <div class="small-pill">LEVEL 2</div>
+            </div>
+
+            <div class="practice-top-right">
+              <div class="star-score">⭐ <span>120</span></div>
+              <div class="timer-box">⏳ <span>01:45</span></div>
+            </div>
+          </div>
+
+          <div class="progress-line">
+            <div class="progress-fill"></div>
+          </div>
+
+          <div class="practice-layout">
+            <div class="side-panel">
+              <div class="buddy-box">🧠</div>
+              <div class="buddy-text">“ You can do it! “</div>
+              <button class="hint-btn">💡 GET A HINT</button>
+              <button class="skip-btn">SKIP QUESTION</button>
+            </div>
+
+            <div class="question-panel">
+              <div class="question-card">
+                <div class="equation">
+                  12 <span class="muted-op">+</span> 8 <span class="muted-op">=</span>
+                  <span class="muted-op">?</span>
+                </div>
+                <div class="flames">🔥 🔥 🔥</div>
+              </div>
+
+              <div class="answers-grid">
+                <div class="answer-box">18</div>
+                <div class="answer-box">20</div>
+                <div class="answer-box">22</div>
+                <div class="answer-box">15</div>
+              </div>
+
+              <div class="question-dots">
+                <div class="dot-item"><div class="dot-label">Q1</div><div class="dot active"></div></div>
+                <div class="dot-item"><div class="dot-label">Q2</div><div class="dot active"></div></div>
+                <div class="dot-item"><div class="dot-label">Q3</div><div class="dot active"></div></div>
+                <div class="dot-item"><div class="dot-label">Q4</div><div class="dot"></div></div>
+                <div class="dot-item"><div class="dot-label">Q5</div><div class="dot"></div></div>
+                <div class="dot-item"><div class="dot-label">Q6</div><div class="dot"></div></div>
+                <div class="dot-item"><div class="dot-label">Q7</div><div class="dot"></div></div>
+                <div class="dot-item"><div class="dot-label">Q8</div><div class="dot"></div></div>
+                <div class="dot-item"><div class="dot-label">Q9</div><div class="dot"></div></div>
+                <div class="dot-item"><div class="dot-label">Q10</div><div class="dot"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer-simple">© 2026 Math Adventure - Learn. Practice. Improve.</footer>
+    </section>
+  </body>
+</html>
+
+<!-- FEEDBACK -->
+    <section class="site-page">
+      <header class="topbar">
+        <div class="brand">Math Adventure</div>
+        <nav class="menu">
+          <a href="#">Home</a>
+          <a href="#">Practice</a>
+          <a href="#">Progress</a>
+          <a href="#">Login</a>
+        </nav>
+      </header>
+
+      <main class="page-main green">
+        <div class="motif small" style="left: 260px; top: 215px">*</div>
+        <div class="motif" style="right: 90px; bottom: 125px">x</div>
+
+        <div class="center-card-shell">
+          <div class="card-medium">
+            <h2 class="card-title">Great job 🎉</h2>
+            <div class="stats-row">
+              <div class="stat-box">
+                <div class="label">Correct answers</div>
+                <div class="value">8</div>
+              </div>
+              <div class="stat-box">
+                <div class="label">Incorrect answers</div>
+                <div class="value">2</div>
+              </div>
+            </div>
+            <div class="feedback-message">keep going 👏</div>
+            <button class="btn btn-primary btn-block">New practice</button>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer-simple">© 2026 Math Adventure - Learn. Practice. Improve.</footer>
+    </section>
+
+
+    <!-- LOGOUT -->
+    <section class="site-page">
+      <header class="topbar">
+        <div class="brand">Math Adventure</div>
+        <nav class="menu">
+          <a href="#">Home</a>
+          <a href="#">Practice</a>
+          <a href="#">Progress</a>
+          <a href="#">Login</a>
+        </nav>
+      </header>
+
+      <main class="page-main blue">
+        <div class="motif small" style="left: 260px; top: 215px">*</div>
+        <div class="motif" style="right: 90px; bottom: 125px">x</div>
+
+        <div class="center-card-shell">
+          <div class="card-small">
+            <h2 class="card-title">Logout</h2>
+            <p class="card-subtitle">Are you sure you want to log out?</p>
+            <div class="stats-row" style="margin-bottom: 0">
+              <button class="btn btn-primary" style="height: 78px; font-size: 22px">Yes</button>
+              <button class="btn btn-outline" style="height: 78px; font-size: 22px">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer-simple">© 2026 Math Adventure - Learn. Practice. Improve.</footer>
+    </section>
