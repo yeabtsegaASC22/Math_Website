@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Math Adventure Premium is a fun, polished math practice website with login, grade levels, instant feedback, progress tracking, and account helper screens." />
+  <title>Math Adventure Premium</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <button class="brand" type="button" data-nav="home" aria-label="Go to home">
+      <span class="brand-mark">∑</span>
+      <span>Math Adventure</span>
+    </button>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu">☰</button>
+    <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+      <button type="button" data-nav="home">Home</button>
+      <button type="button" data-nav="practice">Practice</button>
+      <button type="button" data-nav="progress">Progress</button>
+      <button type="button" data-nav="login" id="loginNavBtn" class="nav-login">Login</button>
+    </nav>
+  </header>
+
+  <main id="app">
+    <section id="homeView" class="screen home-screen active" aria-labelledby="homeTitle">
+      <span class="orb orb-one"></span>
+      <span class="orb orb-two"></span>
+      <span class="math-float top-left">+</span>
+      <span class="math-float mid-right">÷</span>
+      <span class="math-float left-low">×</span>
+
+      <div class="home-wrap">
+        <section class="hero-row">
+          <div class="hero-copy">
+            <span class="eyebrow">Premium Math Practice</span>
+            <h1 id="homeTitle">Build confidence in math, one question at a time.</h1>
+            <p class="description">A clean, student-friendly practice app with grade levels, timed questions, hints, instant feedback, points, and progress tracking.</p>
+            <div class="hero-buttons">
+              <button class="primary get-started" type="button" id="getStartedBtn">Get Started</button>
+              <button class="ghost" type="button" data-nav="practice">Start Practice</button>
+            </div>
+            <div class="hero-stats" aria-label="App highlights">
+              <article><strong>6</strong><span>Grade levels</span></article>
+              <article><strong>5</strong><span>Question types</span></article>
+              <article><strong>10</strong><span>Questions/session</span></article>
+            </div>
+          </div>
+
+          <aside class="hero-card" aria-label="Practice preview">
+            <div class="mini-top"><span>Level 2</span><b>⭐ 120</b></div>
+            <div class="mini-question">18 + 7 = ?</div>
+            <div class="mini-options"><span>24</span><span class="active">25</span><span>26</span><span>27</span></div>
+            <p>Instant feedback keeps learners motivated and focused.</p>
+          </aside>
+        </section>
+
+        <section class="features-title" aria-label="Features overview">
+          <p>FEATURES</p>
+          <h2>Designed for practice, clarity, and progress.</h2>
+          <span>Everything is simple enough for students and structured enough for learning.</span>
+        </section>
+
+        <section class="feature-grid" aria-label="Main features">
+          <article><div class="feature-icon">+</div><div><h3>Grade-based Practice</h3><p>Choose Kindergarten through 5th grade before starting.</p></div></article>
+          <article><div class="feature-icon">✓</div><div><h3>Instant Feedback</h3><p>Know right away whether the answer is correct.</p></div></article>
+          <article><div class="feature-icon">★</div><div><h3>Progress Dashboard</h3><p>Review correct answers, missed answers, and accuracy.</p></div></article>
+          <article><div class="feature-icon">∞</div><div><h3>Unlimited Practice</h3><p>Repeat addition, subtraction, multiplication, division, or mixed operations.</p></div></article>
+        </section>
+      </div>
+    </section>
+
+    <section id="loginView" class="screen login-screen" aria-labelledby="loginTitle">
+      <span class="orb orb-one"></span>
+      <span class="math-float top-left">+</span>
+      <span class="math-float mid-right">÷</span>
+      <form id="loginForm" class="login-card">
+        <span class="card-badge">Student Portal</span>
+        <h2 id="loginTitle">Welcome back</h2>
+        <p>Sign in to continue your math adventure.</p>
+        <label class="sr-only" for="userId">User ID</label>
+        <input id="userId" type="text" placeholder="User ID" autocomplete="username" aria-describedby="userError" />
+        <p id="userError" class="field-error" aria-live="polite"></p>
+        <label class="sr-only" for="password">Password</label>
+        <div class="password-field">
+          <input id="password" type="password" placeholder="Password" autocomplete="current-password" aria-describedby="passwordError" />
+          <button type="button" class="password-toggle" data-toggle-password="password" aria-label="Show password">Show</button>
+        </div>
+        <p id="passwordError" class="field-error" aria-live="polite"></p>
+        <button class="primary" type="submit">Login</button>
+        <div class="login-links">
+          <button type="button" id="forgotBtn">Forgot password?</button>
+          <button type="button" id="createAccountBtn">Create account</button>
+        </div>
+        <p id="loginMessage" class="message" aria-live="polite"></p>
+        <small class="demo">Demo: student1 / Pass123!</small>
+      </form>
+    </section>
+
+    <section id="gradesView" class="screen grades-screen" aria-labelledby="gradeTitle">
+      <p class="top-note" id="gradeTitle">Choose the learner’s grade level</p>
+      <div class="grades-grid">
+        <article class="grade-card" data-grade="Kindergarten" data-level="1"><header><h2>Kindergarten</h2><span>Starter</span></header><div class="emoji-box">🧸</div><p>Simple counting, number recognition, and first math confidence.</p><button type="button">Select Grade</button></article>
+        <article class="grade-card" data-grade="1st Grade" data-level="1"><header><h2>1st Grade</h2><span>Beginner</span></header><div class="emoji-box">🐣</div><p>Adding, subtracting, and building number sense up to 100.</p><button type="button">Select Grade</button></article>
+        <article class="grade-card" data-grade="2nd Grade" data-level="2"><header><h2>2nd Grade</h2><span>Developing</span></header><div class="emoji-box">🚀</div><p>Bigger addition and subtraction with early multiplication.</p><button type="button">Select Grade</button></article>
+        <article class="grade-card" data-grade="3rd Grade" data-level="3"><header><h2>3rd Grade</h2><span>Intermediate</span></header><div class="emoji-box">📘</div><p>Multiplication, division, and stronger problem solving.</p><button type="button">Select Grade</button></article>
+        <article class="grade-card" data-grade="4th Grade" data-level="4"><header><h2>4th Grade</h2><span>Advanced</span></header><div class="emoji-box">🧠</div><p>Multi-digit operations, division, and decimals.</p><button type="button">Select Grade</button></article>
+        <article class="grade-card" data-grade="5th Grade" data-level="5"><header><h2>5th Grade</h2><span>Mastery</span></header><div class="emoji-box">🏆</div><p>Fractions, decimals, mixed operations, and mastery review.</p><button type="button">Select Grade</button></article>
+      </div>
+    </section>
+
+    <section id="gradePathView" class="screen grade-path-screen" aria-labelledby="gradePathTitle">
+      <div class="grade-path-wrap">
+        <button class="outline small-back" type="button" id="backToGrades">← Back to grades</button>
+        <section class="grade-hero-card">
+          <div>
+            <span class="card-badge" id="gradeBadge">Grade Path</span>
+            <h1 id="gradePathTitle">Grade Practice Page</h1>
+            <p id="gradePathDescription">Choose a skill below to start practicing.</p>
+          </div>
+          <div class="grade-hero-emoji" id="gradeHeroEmoji">🚀</div>
+        </section>
+
+        <section class="skill-summary-grid" aria-label="Grade learning summary">
+          <article><span>Focus</span><strong id="gradeFocus">Number sense</strong></article>
+          <article><span>Difficulty</span><strong id="gradeDifficulty">Level 2</strong></article>
+          <article><span>Session</span><strong>10 questions</strong></article>
+        </section>
+
+        <section class="grade-skills-panel">
+          <div>
+            <h2>What learners practice here</h2>
+            <ul id="gradeSkillsList"></ul>
+          </div>
+          <div>
+            <h2>Choose a practice skill</h2>
+            <div id="gradePracticeLinks" class="grade-practice-links"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="typesView" class="screen type-screen" aria-labelledby="typeTitle">
+      <h1 id="typeTitle">Choose Question Type</h1>
+      <p id="selectedGradeText">Pick the type of math questions to practice</p>
+      <div class="type-grid" id="typeGrid"></div>
+    </section>
+
+    <section id="practiceView" class="screen practice-screen" aria-labelledby="questionText">
+      <div class="practice-wrap">
+        <header class="practice-top">
+          <button id="backToTypes" class="outline icon-btn" type="button" aria-label="Back to question types">←</button>
+          <button class="outline" id="levelBadge" type="button">LEVEL 2</button>
+          <div class="score"><span>⭐ <b id="points">120</b></span><button class="outline" type="button">⌛ <span id="timer">01:45</span></button></div>
+        </header>
+        <div class="progress-bar" aria-label="Practice progress"><span id="progressFill"></span></div>
+        <section class="practice-area">
+          <aside class="side-panel">
+            <div class="mascot" id="mascotEmoji">🧠</div>
+            <p>“You can do it!”</p>
+            <button id="hintBtn" class="outline hint" type="button">💡 Get a hint</button>
+            <button id="skipBtn" class="dark" type="button">Skip question</button>
+            <p id="hintText" class="hint-text" aria-live="polite"></p>
+          </aside>
+          <section class="question-area">
+            <div class="question-display"><h1 id="questionText">12 + 8 = ?</h1><div>🔥 🔥 🔥</div></div>
+            <div id="answersGrid" class="answers-grid"></div>
+            <p id="answerMessage" class="answer-message" aria-live="polite"></p>
+            <div id="dots" class="dots"></div>
+          </section>
+        </section>
+      </div>
+    </section>
+
+    <section id="progressView" class="screen progress-screen" aria-labelledby="progressTitle">
+      <div class="progress-card">
+        <span class="card-badge">Dashboard</span>
+        <h1 id="progressTitle">Your Progress</h1>
+        <p id="progressIntro">Complete a practice session to see your score.</p>
+        <div class="stat-row">
+          <article><p>Correct</p><h2 id="progressCorrect">0</h2></article>
+          <article><p>Incorrect</p><h2 id="progressIncorrect">0</h2></article>
+          <article><p>Accuracy</p><h2 id="progressAccuracy">0%</h2></article>
+        </div>
+        <button class="primary" type="button" id="progressPracticeBtn">Start practice</button>
+      </div>
+    </section>
+
+    <section id="resultView" class="screen result-screen" aria-labelledby="resultTitle">
+      <div class="result-card"><span class="card-badge">Session Complete</span><h1 id="resultTitle">Great job 🎉</h1><div class="stat-row"><article><p>Correct</p><h2 id="correctCount">0</h2></article><article><p>Incorrect</p><h2 id="incorrectCount">0</h2></article></div><p class="keep" id="resultMessage">Keep practicing. You are improving.</p><button class="primary" type="button" id="newPracticeBtn">New practice</button></div>
+    </section>
+
+    <section id="forgotView" class="screen account-screen" aria-labelledby="forgotTitle">
+      <form id="forgotForm" class="account-card">
+        <span class="card-badge">Account Help</span>
+        <h1 id="forgotTitle">Reset password</h1>
+        <p>Enter your User ID and follow the demo recovery instructions.</p>
+        <label class="sr-only" for="forgotUserId">User ID</label>
+        <input id="forgotUserId" type="text" placeholder="User ID" autocomplete="username" />
+        <button class="primary" type="submit">Continue</button>
+        <div id="forgotSuccess" class="success-box" aria-live="polite"></div>
+        <div class="secondary-row"><button class="link-btn" type="button" id="backToLoginFromForgot">Back to login</button></div>
+      </form>
+    </section>
+
+    <section id="createAccountView" class="screen account-screen" aria-labelledby="createTitle">
+      <form id="createAccountForm" class="account-card">
+        <span class="card-badge">New Learner</span>
+        <h1 id="createTitle">Create account</h1>
+        <p>Create a practice account for this browser session.</p>
+        <label class="sr-only" for="newUserId">User ID</label>
+        <input id="newUserId" type="text" placeholder="User ID: 8 to 12 characters" autocomplete="username" />
+        <label class="sr-only" for="newPassword">Password</label>
+        <div class="password-field">
+          <input id="newPassword" type="password" placeholder="Password: uppercase, number, symbol" autocomplete="new-password" />
+          <button type="button" class="password-toggle" data-toggle-password="newPassword" aria-label="Show password">Show</button>
+        </div>
+        <button class="primary" type="submit">Create account</button>
+        <div id="createSuccess" class="success-box" aria-live="polite"></div>
+        <div class="secondary-row"><button class="link-btn" type="button" id="backToLoginFromCreate">Back to login</button></div>
+      </form>
+    </section>
+
+    <section id="logoutView" class="screen logout-screen" aria-labelledby="logoutTitle">
+      <div class="logout-card"><span class="card-badge">Session</span><h1 id="logoutTitle">Logout</h1><p>Are you sure you want to log out?</p><div class="logout-actions"><button id="yesLogout" class="primary" type="button">Yes</button><button id="cancelLogout" class="outline" type="button">Cancel</button></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© 2026 Math Adventure</span>
+    <span>Learn. Practice. Improve.</span>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
