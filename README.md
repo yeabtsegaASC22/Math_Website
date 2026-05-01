@@ -90,6 +90,21 @@ The frontend uses JavaScript `fetch()` to communicate with these endpoints.
 
 ---
 
+## Summary
+
+This project demonstrates:
+- Full frontend and backend integration  
+- REST API communication  
+- Real-time interaction between user interface and backend logic
+
+<img width="1914" height="867" alt="image" src="https://github.com/user-attachments/assets/a4f684a5-142b-4dd1-ae5c-d0c3c0ce3bdb" />
+<img width="1914" height="870" alt="image" src="https://github.com/user-attachments/assets/bdc81006-3446-4d25-bd3a-591b9c42fca3" />
+<img width="1896" height="864" alt="image" src="https://github.com/user-attachments/assets/c9ed4b52-f77f-4f15-80f2-06d6deccbbde" />
+<img width="1906" height="869" alt="image" src="https://github.com/user-attachments/assets/29ed9586-c364-48b1-9d25-49bf108a3963" />
+<img width="1910" height="868" alt="image" src="https://github.com/user-attachments/assets/598c7f66-0301-425d-8142-825d5173c57b" />
+
+---
+
 ## Project Structure
 ```text
 math-adventure-website/
@@ -112,22 +127,5 @@ math-adventure-website/
 ├── pom.xml
 ├── README.md
 └── .gitignore
-
----
-
-## Summary
-
-This project demonstrates:
-- Full frontend and backend integration  
-- REST API communication  
-- Real-time interaction between user interface and backend logic
-
-<img width="1914" height="867" alt="image" src="https://github.com/user-attachments/assets/a4f684a5-142b-4dd1-ae5c-d0c3c0ce3bdb" />
-<img width="1914" height="870" alt="image" src="https://github.com/user-attachments/assets/bdc81006-3446-4d25-bd3a-591b9c42fca3" />
-<img width="1896" height="864" alt="image" src="https://github.com/user-attachments/assets/c9ed4b52-f77f-4f15-80f2-06d6deccbbde" />
-<img width="1906" height="869" alt="image" src="https://github.com/user-attachments/assets/29ed9586-c364-48b1-9d25-49bf108a3963" />
-<img width="1910" height="868" alt="image" src="https://github.com/user-attachments/assets/598c7f66-0301-425d-8142-825d5173c57b" />
-
-
 
 
