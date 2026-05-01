@@ -91,7 +91,7 @@ The frontend uses JavaScript `fetch()` to communicate with these endpoints.
 ---
 
 ## Project Structure
-
+```text
 math-adventure-website/
 │
 ├── src/
